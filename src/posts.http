@@ -1,0 +1,28 @@
+### GET ALL POSTS
+GET http://localhost:3000/posts
+
+
+### GET POST BY ID
+GET http://localhost:3000/posts/1
+
+
+### GET POSTS BY USER ID
+GET http://localhost:3000/posts
+?userId=1
+
+### GET POSTS BY TITLE
+GET http://localhost:3000/posts
+?title=qui est esse
+
+### GET POSTS SKIPED
+GET http://localhost:3000/posts
+?skip=10
+
+### GET POSTS LIMITED
+GET http://localhost:3000/posts
+?limit=5
+
+### GET POSTS LIMITED AND SKIPPED
+GET http://localhost:3000/posts
+?limit=2
+&skip=10
