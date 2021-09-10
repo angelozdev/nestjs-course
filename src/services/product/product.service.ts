@@ -21,7 +21,16 @@ export class ProductService {
   async getById(id: string) {
     try {
       const { data } = await axiosStoreInstance.get<Product>(`/products/${id}`)
-      if (!data) throw new Error('Not found')
+      return data
+    } catch (error) {}
+  }
+
+  async create(product: Omit<Product, 'id' | 'rating'>) {
+    try {
+      const { data } = await axiosStoreInstance.post<Product>(
+        '/products',
+        product
+      )
       return data
     } catch (error) {}
   }
