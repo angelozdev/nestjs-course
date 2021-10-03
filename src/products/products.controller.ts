@@ -1,4 +1,13 @@
-import { Body, Controller, Get, Param, Post, Query, Put } from '@nestjs/common'
+import {
+  Body,
+  Controller,
+  Get,
+  Param,
+  ParseIntPipe,
+  Post,
+  Put,
+  Query
+} from '@nestjs/common'
 import { ProductsService } from './products.service'
 import { CreateProductDto } from './dto'
 import { TSort } from './interfaces'
@@ -25,7 +34,7 @@ export class ProductsController {
   }
 
   @Get('/:id')
-  async getASingleProduct(@Param('id') id: string) {
+  async getASingleProduct(@Param('id', ParseIntPipe) id: number) {
     return await this.productsService.getById(id)
   }
 
@@ -55,9 +64,9 @@ export class ProductsController {
 
   @Put('/:id')
   async updateProduct(
-    @Param('id') id: string,
+    @Param('id', ParseIntPipe) id: number,
     @Body() product: CreateProductDto
   ) {
-    return product
+    return await this.productsService.update(id, product)
   }
 }
