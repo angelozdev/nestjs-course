@@ -24,7 +24,7 @@ Content-Type: application/json
   "title": "title",
   "price": 1000,
   "category": "home",
-  "image": "http://localhost:3000/http-cats/200"
+  "image": "imagerandom.com"
 }
 
 ### Get by category
@@ -32,13 +32,11 @@ GET {{baseUrl}}/products/category/jewelery
 
 
 ### UPDATE product
-PUT {{baseUrl}}/products/232
+PUT {{baseUrl}}/products/1
 Content-Type: application/json
 
 {
   "description": "Description",
   "title": "title",
-  "price": 1000,
-  "category": "home",
-  "image": "http://localhost:3000/http-cats/200"
+  "price": 1000
 }

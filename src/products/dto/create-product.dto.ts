@@ -1,3 +1,4 @@
+import { PartialType } from '@nestjs/mapped-types'
 import {
   IsNotEmpty,
   IsNumber,
@@ -29,3 +30,5 @@ export class CreateProductDto {
   @IsUrl()
   readonly image: string
 }
+
+export class UpdateProductDto extends PartialType(CreateProductDto) {}

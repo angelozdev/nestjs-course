@@ -11,6 +11,7 @@ import {
 import { ProductsService } from './products.service'
 import { CreateProductDto } from './dto'
 import { TSort } from './interfaces'
+import { UpdateProductDto } from './dto/create-product.dto'
 
 @Controller('products')
 export class ProductsController {
@@ -40,32 +41,13 @@ export class ProductsController {
 
   @Post()
   async createProduct(@Body() product: CreateProductDto) {
-    if (!product || typeof product !== 'object') {
-      throw new Error('Missing product')
-    }
-
-    const newProduct: CreateProductDto = {
-      category: undefined,
-      description: undefined,
-      image: undefined,
-      price: undefined,
-      title: undefined,
-      ...product
-    }
-
-    Object.entries(newProduct).forEach(([key, value]) => {
-      if (!value) {
-        throw new Error(`Missing ${key} of product`)
-      }
-    })
-
     return await this.productsService.create(product)
   }
 
   @Put('/:id')
   async updateProduct(
     @Param('id', ParseIntPipe) id: number,
-    @Body() product: CreateProductDto
+    @Body() product: UpdateProductDto
   ) {
     return await this.productsService.update(id, product)
   }
