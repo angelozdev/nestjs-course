@@ -1,0 +1,42 @@
+@baseUrl=http://localhost:3000
+
+### GET all products
+GET {{baseUrl}}/products
+
+### GET all products sorted
+GET {{baseUrl}}/products
+  ?sort=desc
+
+### GET 5 products
+GET {{baseUrl}}/products
+  ?limit=5
+  &sort=desc
+
+### GET product by id
+GET {{baseUrl}}/products/200
+
+### Create product
+POST {{baseUrl}}/products
+Content-Type: application/json
+
+{
+  "description": "Description",
+  "title": "title",
+  "price": 1000,
+  "category": "home",
+  "image": "imagerandom.com"
+}
+
+### Get by category
+GET {{baseUrl}}/products/category/jewelery
+
+
+### UPDATE product
+PUT {{baseUrl}}/products/1
+Content-Type: application/json
+
+{
+  "description": "Description",
+  "title": "title",
+  "price": 1000
+}
