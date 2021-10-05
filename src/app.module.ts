@@ -8,9 +8,10 @@ import { AppController } from './app.controller'
 
 // Modules
 import { ProductsModule } from './models/products/products.module'
+import { UsersModule } from './models/users/users.module'
 
 @Module({
-  imports: [ProductsModule],
+  imports: [ProductsModule, UsersModule],
   controllers: [AppController],
   providers: [AppService]
 })

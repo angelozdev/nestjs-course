@@ -1,0 +1,7 @@
+@baseUrl=http://localhost:3000/users
+
+### GET all users
+GET {{baseUrl}}
+
+### GET user by id
+GET {{baseUrl}}/1000
