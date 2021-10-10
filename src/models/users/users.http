@@ -4,4 +4,15 @@
 GET {{baseUrl}}
 
 ### GET user by id
-GET {{baseUrl}}/1000
+GET {{baseUrl}}/1
+
+
+### CREATE new user
+POST {{baseUrl}}
+Content-Type: "application/json"
+
+{
+  "name": "Angelo",
+  "username": "angelozdev",
+  "email": "angelo@ubidots.com"
+}

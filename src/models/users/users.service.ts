@@ -27,7 +27,7 @@ export class UsersService {
   }
 
   async create(user: CreateUserDto): Promise<User> {
-    const { data } = await _axios.get<User>('/', { data: user })
+    const { data } = await _axios.post<User>('/', { data: user })
     return data
   }
 }

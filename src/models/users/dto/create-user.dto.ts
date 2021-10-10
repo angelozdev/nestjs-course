@@ -1,31 +1,74 @@
-// export interface User {
-//   id: number
-//   name: string
-//   username: string
-//   email: string
-//   address: Address
-//   phone: string
-//   website: string
-//   company: Company
-// }
+import { Type } from 'class-transformer'
+import {
+  IsDefined,
+  IsEmail,
+  IsNotEmptyObject,
+  IsNumberString,
+  IsObject,
+  IsOptional,
+  IsString,
+  ValidateNested
+} from 'class-validator'
+import {
+  Address as IAddress,
+  Company as ICompany,
+  Geo as IGeo,
+  User
+} from '../interfaces/user.interface'
 
-// interface Address {
-//   street: string
-//   suite: string
-//   city: string
-//   zipcode: string
-//   geo: Geo
-// }
+class Geo implements IGeo {
+  @IsNumberString()
+  lat: string
 
-// interface Geo {
-//   lat: string
-//   lng: string
-// }
+  @IsNumberString()
+  lng: string
+}
 
-// interface Company {
-//   name: string
-//   catchPhrase: string
-//   bs: string
-// }
+class Address implements IAddress {
+  @IsString()
+  city: string
 
-export class CreateUserDto {}
+  @IsString()
+  street: string
+
+  @IsString()
+  suite: string
+
+  @IsString()
+  zipcode: string
+
+  @IsDefined()
+  @IsObject()
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => Geo)
+  geo: Geo
+}
+
+export class CreateUserDto implements Omit<User, 'id'> {
+  @IsString()
+  name: string
+
+  @IsString()
+  username: string
+
+  @IsEmail()
+  email: string
+
+  @ValidateNested()
+  @IsObject()
+  @IsDefined()
+  @IsNotEmptyObject()
+  @Type(() => Address)
+  address: Address
+
+  @IsString()
+  website: string
+
+  @IsString()
+  phone: string
+
+  @IsOptional()
+  @IsObject()
+  company!: ICompany
+}
