@@ -9,9 +9,10 @@ import { AppController } from './app.controller'
 // Modules
 import { ProductsModule } from './models/products/products.module'
 import { UsersModule } from './models/users/users.module'
+import { OrdersModule } from './models/orders/orders.module'
 
 @Module({
-  imports: [ProductsModule, UsersModule],
+  imports: [ProductsModule, UsersModule, OrdersModule],
   controllers: [AppController],
   providers: [AppService]
 })

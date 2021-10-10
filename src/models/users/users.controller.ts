@@ -24,10 +24,13 @@ export class UsersController {
     return await this.usersService.getById(id)
   }
 
+  @Get('/:id/orders')
+  async getOrdersByUserId(@Param('id', ParseIntPipe) id: number) {
+    return await this.usersService.getOrders(id)
+  }
+
   @Post('/')
   async create(@Body() newUser: CreateUserDto) {
-    console.log(newUser)
-
     return await this.usersService.create(newUser)
   }
 }

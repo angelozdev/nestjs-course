@@ -5,8 +5,8 @@ import {
   IsNotEmptyObject,
   IsNumberString,
   IsObject,
-  IsOptional,
   IsString,
+  IsUrl,
   ValidateNested
 } from 'class-validator'
 import {
@@ -45,6 +45,17 @@ class Address implements IAddress {
   geo: Geo
 }
 
+class Company implements ICompany {
+  @IsString()
+  bs: string
+
+  @IsString()
+  catchPhrase: string
+
+  @IsString()
+  name: string
+}
+
 export class CreateUserDto implements Omit<User, 'id'> {
   @IsString()
   name: string
@@ -62,13 +73,15 @@ export class CreateUserDto implements Omit<User, 'id'> {
   @Type(() => Address)
   address: Address
 
-  @IsString()
+  @IsUrl()
   website: string
 
   @IsString()
   phone: string
 
-  @IsOptional()
   @IsObject()
-  company!: ICompany
+  @IsNotEmptyObject()
+  @ValidateNested()
+  @Type(() => Company)
+  company: Company
 }

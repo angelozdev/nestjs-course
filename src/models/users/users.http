@@ -4,15 +4,17 @@
 GET {{baseUrl}}
 
 ### GET user by id
-GET {{baseUrl}}/1
-
+GET {{baseUrl}}/6
 
 ### CREATE new user
 POST {{baseUrl}}
 Content-Type: "application/json"
 
 {
-  "name": "Angelo",
+  "name": "Angelo Zambrano",
   "username": "angelozdev",
-  "email": "angelo@ubidots.com"
+  "email": "angelo@ubidots.com",
+  "asd": "asd"
 }
+
+### sada
