@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common'
-import { HttpModule, HttpService } from '@nestjs/axios'
+import { HttpModule } from '@nestjs/axios'
 
 // services
 import { AppService } from './app.service'
@@ -20,16 +20,6 @@ import { OrdersModule } from './models/orders/orders.module'
     {
       provide: 'API_KEY',
       useValue: Math.floor(Math.random() * 10)
-    },
-    {
-      provide: 'user',
-      useFactory: (http: HttpService) => {
-        const usersObservable = http.get('http://localhost:3000/users/1')
-        usersObservable.subscribe(({ data }) => {
-          console.log(data)
-        })
-      },
-      inject: [HttpService]
     }
   ]
 })

@@ -34,19 +34,7 @@ export class UsersService {
     return data
   }
 
-  async getOrders(userId: number): Promise<Order[]> {
-    const user = await this.getById(userId)
-    const products = await this.productsService.getAll({
-      limit: Math.floor(Math.random() * 10)
-    })
-
-    return Promise.resolve([
-      {
-        user,
-        products,
-        id: Math.floor(Math.random() * 100000),
-        created_at: new Date().toISOString()
-      }
-    ])
+  async getOrders(userId: number) {
+    return userId
   }
 }

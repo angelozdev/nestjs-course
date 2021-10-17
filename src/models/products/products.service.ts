@@ -1,57 +1,56 @@
+import { HttpService } from '@nestjs/axios'
 import { Injectable, NotFoundException } from '@nestjs/common'
-import axios from 'axios'
+import { AxiosResponse } from 'axios'
+import { Observable } from 'rxjs'
 import { CreateProductDto } from './dto'
 import { IOptions } from './interfaces'
 import { Product } from './interfaces/product.interface'
 
-const axiosStoreInstance = axios.create({
-  baseURL: 'https://fakestoreapi.com/products',
-  headers: { 'Content-Type': 'application/json' }
-})
+const BASE_URL = 'https://fakestoreapi.com/products'
 
 @Injectable()
 export class ProductsService {
-  async getAll(options: IOptions): Promise<Product[]> {
-    const { data } = await axiosStoreInstance.get<Product[]>('/', {
-      params: options
-    })
-    return data
+  constructor(private httpService: HttpService) {}
+  getAll(options: IOptions): Observable<AxiosResponse<Product[]>> {
+    const url = BASE_URL + '/'
+    return this.httpService.get(url, { params: options })
   }
 
-  async getByCategory(category: string, options: IOptions): Promise<Product[]> {
-    const url = `/category/${category}`
-    const { data } = await axiosStoreInstance.get<Product[]>(url, {
-      params: options
-    })
-
-    return data
+  getByCategory(
+    category: string,
+    options: IOptions
+  ): Observable<AxiosResponse<Product[]>> {
+    const url = BASE_URL + `/category/${category}`
+    return this.httpService.get(url, { params: options })
   }
 
-  async getById(id: number) {
-    const { data } = await axiosStoreInstance.get<Product>(`/${id}`)
-    if (!data) throw new NotFoundException(`Product ${id} was not found`)
+  getById(id: number): Observable<AxiosResponse<Product>> {
+    const url = BASE_URL + `/${id}`
+    return this.httpService.get(url)
+    // const { data } = await axiosStoreInstance.get<Product>(`/${id}`)
+    // if (!data) throw new NotFoundException(`Product ${id} was not found`)
 
-    return data
+    // return data
   }
 
-  async create(product: CreateProductDto) {
-    const { data } = await axiosStoreInstance.post<Product>('/', product)
-    return data
-  }
+  // async create(product: CreateProductDto) {
+  //   const { data } = await axiosStoreInstance.post<Product>('/', product)
+  //   return data
+  // }
 
-  async update(id: number, product: Partial<CreateProductDto>) {
-    const { data: foundProduct } = await axiosStoreInstance.get<Product>(
-      `/${id}`
-    )
-    if (!foundProduct)
-      throw new NotFoundException(`Product ${id} was not found`)
+  // async update(id: number, product: Partial<CreateProductDto>) {
+  //   const { data: foundProduct } = await axiosStoreInstance.get<Product>(
+  //     `/${id}`
+  //   )
+  //   if (!foundProduct)
+  //     throw new NotFoundException(`Product ${id} was not found`)
 
-    const newProduct = { ...foundProduct, ...product }
+  //   const newProduct = { ...foundProduct, ...product }
 
-    const { data: updatedProduct } = await axiosStoreInstance.put<Product>(
-      `/${id}`,
-      newProduct
-    )
-    return updatedProduct
-  }
+  //   const { data: updatedProduct } = await axiosStoreInstance.put<Product>(
+  //     `/${id}`,
+  //     newProduct
+  //   )
+  //   return updatedProduct
+  // }
 }
